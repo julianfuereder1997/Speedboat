@@ -1,0 +1,214 @@
+---
+import { einstiegsOptionen } from '../data/einstieg';
+import { leistungen } from '../data/leistungen';
+import { pakete } from '../data/pakete';
+import { siteConfig } from '../config/site';
+
+const leistungById = Object.fromEntries(leistungen.map((l) => [l.id, l]));
+const paketById = Object.fromEntries(pakete.map((p) => [p.id, p]));
+
+const pillarBadgeClass: Record<string, string> = {
+  foerderung: 'bg-pillar-foerderung-soft text-pillar-foerderung',
+  technologie: 'bg-pillar-technologie-soft text-pillar-technologie',
+  geschaeftsmodell: 'bg-pillar-geschaeft-soft text-pillar-geschaeft',
+};
+---
+
+<section id="einstieg" aria-labelledby="einstieg-heading" class="bg-paper">
+  <div class="container-page px-6 py-24">
+    <div class="max-w-2xl">
+      <p class="text-sm font-semibold tracking-wide text-accent-700 uppercase">Einstieg</p>
+      <h2
+        id="einstieg-heading"
+        class="mt-2 text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
+      >
+        Wo stehen Sie gerade?
+      </h2>
+      <p class="mt-4 text-ink-muted">
+        Wählen Sie die Beschreibung, die am ehesten passt — wir zeigen Ihnen, welche Leistungen im
+        Vordergrund stehen und welches Paket passt.
+      </p>
+    </div>
+
+    <div class="einstiegs-selector mt-12" data-einstiegs-selector>
+      {
+        einstiegsOptionen.map((option, index) => (
+          <input
+            type="radio"
+            name="einstieg"
+            id={`einstieg-${option.id}`}
+            value={option.id}
+            class="sr-only"
+            checked={index === 0}
+            data-einstieg-radio
+          />
+        ))
+      }
+
+      <div class="einstieg-cards grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          einstiegsOptionen.map((option) => (
+            <label
+              for={`einstieg-${option.id}`}
+              class="einstieg-card cursor-pointer rounded-lg border border-line bg-paper-dim p-5 transition-colors"
+            >
+              <span class="block text-sm font-semibold text-ink">{option.label}</span>
+              <span class="mt-1 block text-xs text-ink-muted">{option.description}</span>
+            </label>
+          ))
+        }
+      </div>
+
+      <div class="einstieg-results mt-8">
+        {
+          einstiegsOptionen.map((option) => (
+            <div
+              class="einstieg-result rounded-lg border border-line bg-paper-dim p-8"
+              data-einstieg-result={option.id}
+            >
+              <p class="text-sm text-ink-muted">{option.begruendung}</p>
+
+              <div class="mt-6 grid gap-8 sm:grid-cols-2">
+                <div>
+                  <p class="text-xs font-semibold tracking-wide text-ink-muted uppercase">
+                    Leistungen im Vordergrund
+                  </p>
+                  <div class="mt-2 flex flex-wrap items-center gap-2">
+                    <a
+                      href={`#${option.schwerpunkt[0]}`}
+                      class={`rounded-full px-3 py-1 text-xs font-medium hover:underline ${pillarBadgeClass[option.schwerpunkt[0]]}`}
+                    >
+                      {leistungById[option.schwerpunkt[0]]?.name}
+                    </a>
+                    <span class="text-ink-muted" aria-hidden="true">
+                      {option.sequentiell ? '→' : '&'}
+                    </span>
+                    <a
+                      href={`#${option.schwerpunkt[1]}`}
+                      class={`rounded-full px-3 py-1 text-xs font-medium hover:underline ${pillarBadgeClass[option.schwerpunkt[1]]}`}
+                    >
+                      {leistungById[option.schwerpunkt[1]]?.name}
+                    </a>
+                  </div>
+                  {option.sequentiell && (
+                    <p class="mt-2 text-xs text-ink-muted">
+                      Erst {leistungById[option.schwerpunkt[0]]?.name}, dann{' '}
+                      {leistungById[option.schwerpunkt[1]]?.name}.
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <p class="text-xs font-semibold tracking-wide text-ink-muted uppercase">
+                    Passendes Paket
+                  </p>
+                  <ul class="mt-2 space-y-1.5">
+                    {option.pakete.map((empfehlung) => {
+                      const paket = paketById[empfehlung.paketId];
+                      return (
+                        <li>
+                          <a
+                            href={`#${paket?.id}`}
+                            class="inline-flex items-center gap-1 text-sm font-medium text-accent-700 hover:text-accent-800 hover:underline"
+                          >
+                            {paket?.name}
+                            <svg
+                              class="size-3.5"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1.75"
+                              aria-hidden="true"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M4 10h12M10 4l6 6-6 6"
+                              />
+                            </svg>
+                          </a>
+                          {empfehlung.bedingung && (
+                            <span class="ml-1 text-xs text-ink-muted">
+                              ({empfehlung.bedingung})
+                            </span>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+
+              <a
+                href={siteConfig.ctaHref}
+                class="mt-8 inline-flex items-center justify-center rounded-md bg-accent-700 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent-600"
+              >
+                {siteConfig.ctaLabel}
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .einstieg-results [data-einstieg-result] {
+    display: none;
+  }
+
+  #einstieg-idee:checked ~ .einstieg-results [data-einstieg-result='idee'],
+  #einstieg-prototyp:checked ~ .einstieg-results [data-einstieg-result='prototyp'],
+  #einstieg-umsatz:checked ~ .einstieg-results [data-einstieg-result='umsatz'],
+  #einstieg-etabliert:checked ~ .einstieg-results [data-einstieg-result='etabliert'] {
+    display: block;
+  }
+
+  #einstieg-idee:checked ~ .einstieg-cards label[for='einstieg-idee'],
+  #einstieg-prototyp:checked ~ .einstieg-cards label[for='einstieg-prototyp'],
+  #einstieg-umsatz:checked ~ .einstieg-cards label[for='einstieg-umsatz'],
+  #einstieg-etabliert:checked ~ .einstieg-cards label[for='einstieg-etabliert'] {
+    border-color: var(--color-accent-600);
+    background-color: var(--color-accent-100);
+  }
+
+  #einstieg-idee:focus-visible ~ .einstieg-cards label[for='einstieg-idee'],
+  #einstieg-prototyp:focus-visible ~ .einstieg-cards label[for='einstieg-prototyp'],
+  #einstieg-umsatz:focus-visible ~ .einstieg-cards label[for='einstieg-umsatz'],
+  #einstieg-etabliert:focus-visible ~ .einstieg-cards label[for='einstieg-etabliert'] {
+    outline: 2px solid var(--color-accent-600);
+    outline-offset: 2px;
+  }
+</style>
+
+<script>
+  // Auswahl per URL-Hash teilbar (z. B. #einstieg-prototyp). Rein
+  // funktional läuft der Selektor ohne JS über :checked-CSS — dieses
+  // Skript ergänzt nur das Lesen/Schreiben des Hash für Teilbarkeit.
+  const root = document.querySelector<HTMLElement>('[data-einstiegs-selector]');
+
+  if (root) {
+    const radios = Array.from(root.querySelectorAll<HTMLInputElement>('[data-einstieg-radio]'));
+    const validIds = new Set(radios.map((radio) => radio.id));
+
+    function applyHash(hash: string) {
+      const id = hash.replace('#', '');
+      if (!validIds.has(id)) return;
+      const radio = document.getElementById(id) as HTMLInputElement | null;
+      if (radio) radio.checked = true;
+    }
+
+    applyHash(location.hash);
+
+    window.addEventListener('hashchange', () => applyHash(location.hash));
+
+    radios.forEach((radio) => {
+      radio.addEventListener('change', () => {
+        if (radio.checked && location.hash !== `#${radio.id}`) {
+          history.replaceState(null, '', `#${radio.id}`);
+        }
+      });
+    });
+  }
+</script>

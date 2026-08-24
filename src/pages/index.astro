@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import LeistungsTabs from '../components/LeistungsTabs.astro';
+import EinstiegsSelektor from '../components/EinstiegsSelektor.astro';
 import Pakete from '../components/Pakete.astro';
 import Companion from '../components/Companion.astro';
 import TodoNote from '../components/TodoNote.astro';
@@ -27,8 +28,10 @@ import { siteConfig } from '../config/site';
 
   <LeistungsTabs />
 
+  <EinstiegsSelektor />
+
   <div class="container-page px-6 py-16">
-    <TodoNote>Einstiegs-Selektor folgt in Block 5, die Verzahnungs-Sektion in Block 7.</TodoNote>
+    <TodoNote>Die Verzahnungs-Sektion folgt in Block 7.</TodoNote>
   </div>
 
   <Pakete />
