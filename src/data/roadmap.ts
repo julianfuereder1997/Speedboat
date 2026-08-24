@@ -5,6 +5,9 @@ export interface RoadmapStage {
   whatHappens: string;
   whatWeDo: string;
   whatClientContributes: string;
+  duration: string;
+  /** Nur gesetzt, wenn die Dauer nicht unsere Leistungszeit ist, sondern von einer externen Stelle abhängt. */
+  durationNote?: string;
 }
 
 export const roadmapStages: RoadmapStage[] = [
@@ -17,6 +20,7 @@ export const roadmapStages: RoadmapStage[] = [
     whatWeDo: 'Grobprüfung der Förderfähigkeit und erste Einschätzung passender Programme.',
     whatClientContributes:
       'Kurzbeschreibung des Vorhabens und der aktuellen Unternehmenssituation.',
+    duration: '1–2 Wochen',
   },
   {
     number: 2,
@@ -27,6 +31,7 @@ export const roadmapStages: RoadmapStage[] = [
     whatWeDo: 'Wir legen Zeitachse, Programmkombination und Budgetlogik fest.',
     whatClientContributes:
       'Budget- und Projektplanungsdaten sowie Rückmeldung zur vorgeschlagenen Roadmap.',
+    duration: '1–2 Wochen',
   },
   {
     number: 3,
@@ -36,6 +41,7 @@ export const roadmapStages: RoadmapStage[] = [
       'Der Antrag wird inhaltlich ausgearbeitet — inklusive Finanzplan und, falls nötig, Konsortium.',
     whatWeDo: 'Ausarbeitung von Projektbeschreibung, Finanzplan und Konsortialstruktur.',
     whatClientContributes: 'Fachliche Inhalte und Zahlen sowie Feedback zu Zwischenständen.',
+    duration: '2–4 Wochen',
   },
   {
     number: 4,
@@ -45,6 +51,7 @@ export const roadmapStages: RoadmapStage[] = [
     whatWeDo:
       'Finale formale Prüfung und fristgerechte Einreichung bei der zuständigen Förderstelle.',
     whatClientContributes: 'Finale Freigabe der Antragsunterlagen.',
+    duration: 'fristgebunden',
   },
   {
     number: 5,
@@ -55,6 +62,8 @@ export const roadmapStages: RoadmapStage[] = [
       'Vorbereitung und Probelauf für das Hearing sowie Beantwortung von Rückfragen der Förderstelle.',
     whatClientContributes:
       'Verfügbarkeit für Vorbereitung und Hearing sowie fachliche Antworten auf Rückfragen.',
+    duration: '4–8 Wochen nach Einreichung',
+    durationNote: 'Abhängig vom Fördergeber — nicht unsere Leistungszeit.',
   },
   {
     number: 6,
@@ -64,5 +73,7 @@ export const roadmapStages: RoadmapStage[] = [
     whatWeDo:
       'Unterstützung bei Abrechnung und Berichtspflichten sowie Vorbereitung möglicher Folgeanträge.',
     whatClientContributes: 'Laufende Projekt- und Kostendaten für die Abrechnung.',
+    duration: 'laufend',
+    durationNote: 'Abhängig vom Fördergeber und Projektlaufzeit — nicht unsere Leistungszeit.',
   },
 ];

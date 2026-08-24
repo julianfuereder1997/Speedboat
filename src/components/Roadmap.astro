@@ -92,9 +92,12 @@ import { roadmapStages } from '../data/roadmap';
                     </div>
                     <div>
                       <p class="font-medium text-ink">Typische Dauer</p>
-                      <p class="mt-1 inline-flex rounded border border-dashed border-accent-400 bg-accent-100 px-2 py-0.5 text-xs font-medium text-accent-800">
-                        TODO – wird ergänzt
+                      <p class="mt-1 inline-flex rounded bg-navy-100 px-2 py-0.5 text-xs font-medium text-navy-800">
+                        {stage.duration}
                       </p>
+                      {stage.durationNote && (
+                        <p class="mt-1 text-xs text-ink-muted italic">{stage.durationNote}</p>
+                      )}
                     </div>
                   </div>
                 </div>
