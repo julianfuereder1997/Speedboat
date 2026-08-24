@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Roadmap from '../components/Roadmap.astro';
 import TodoNote from '../components/TodoNote.astro';
 import { siteConfig } from '../config/site';
 ---
@@ -22,10 +23,9 @@ import { siteConfig } from '../config/site';
     </div>
   </section>
 
+  <Roadmap />
+
   <div class="container-page px-6 py-16">
-    <TodoNote>
-      Förder-Roadmap-Komponente, Pakete-Sektion und Companion-Sektion folgen in den nächsten Blöcken
-      (4–6).
-    </TodoNote>
+    <TodoNote>Pakete-Sektion und Companion-Sektion folgen in den nächsten Blöcken (5–6).</TodoNote>
   </div>
 </Layout>

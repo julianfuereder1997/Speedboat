@@ -1,0 +1,200 @@
+---
+import { roadmapStages } from '../data/roadmap';
+---
+
+<section id="roadmap" aria-labelledby="roadmap-heading" class="bg-paper-dim">
+  <div class="container-page px-6 py-24">
+    <div class="max-w-2xl">
+      <p class="text-sm font-semibold tracking-wide text-accent-700 uppercase">Förder-Roadmap</p>
+      <h2
+        id="roadmap-heading"
+        class="mt-2 text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
+      >
+        Von der Idee bis zur Auszahlung
+      </h2>
+      <p class="mt-4 text-ink-muted">
+        Sechs Stufen, ein durchgängiger Ablauf — erste Einreichung innerhalb eines Monats nach
+        Projektstart. Klicken Sie auf eine Stufe für Details.
+      </p>
+    </div>
+
+    <ol class="roadmap-list relative mt-16 flex flex-col gap-10 md:flex-row md:gap-0" data-roadmap>
+      <div
+        class="pointer-events-none absolute top-0 bottom-0 left-5 w-px bg-navy-200 md:top-5 md:right-[8.333%] md:bottom-auto md:left-[8.333%] md:h-px md:w-auto"
+        aria-hidden="true"
+      >
+      </div>
+
+      {
+        roadmapStages.map((stage, index) => {
+          const isFirst = index === 0;
+          const triggerId = `roadmap-trigger-${stage.number}`;
+          const panelId = `roadmap-panel-${stage.number}`;
+
+          return (
+            <li
+              class="roadmap-stage relative md:flex-1 md:px-3"
+              style={`transition-delay: ${index * 80}ms`}
+            >
+              <div class="flex gap-4 md:flex-col md:items-center md:gap-3 md:text-center">
+                <span
+                  class={`stage-node relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-navy-800 bg-navy-800 text-sm font-semibold text-paper ${isFirst ? 'is-active' : ''}`}
+                  aria-hidden="true"
+                  data-node
+                >
+                  {stage.number}
+                </span>
+
+                <div class="flex-1 pb-2 md:pb-0">
+                  <h3 class="text-base font-semibold text-ink">
+                    <button
+                      type="button"
+                      id={triggerId}
+                      aria-expanded={isFirst}
+                      aria-controls={panelId}
+                      class="stage-trigger flex w-full items-start justify-between gap-2 text-left md:flex-col md:items-center md:justify-center md:gap-1 md:text-center"
+                      data-trigger
+                    >
+                      <span>{stage.title}</span>
+                      <svg
+                        class="chevron mt-0.5 size-4 shrink-0 text-navy-500 md:hidden"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.75"
+                        aria-hidden="true"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m5 7.5 5 5 5-5" />
+                      </svg>
+                    </button>
+                  </h3>
+                  <p class="mt-1 text-sm text-ink-muted">{stage.teaser}</p>
+
+                  <div
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={triggerId}
+                    class="stage-panel mt-4 space-y-3 text-left text-sm"
+                    hidden={!isFirst}
+                    data-panel
+                  >
+                    <div>
+                      <p class="font-medium text-ink">Was passiert</p>
+                      <p class="text-ink-muted">{stage.whatHappens}</p>
+                    </div>
+                    <div>
+                      <p class="font-medium text-ink">Was wir tun</p>
+                      <p class="text-ink-muted">{stage.whatWeDo}</p>
+                    </div>
+                    <div>
+                      <p class="font-medium text-ink">Was Sie beisteuern</p>
+                      <p class="text-ink-muted">{stage.whatClientContributes}</p>
+                    </div>
+                    <div>
+                      <p class="font-medium text-ink">Typische Dauer</p>
+                      <p class="mt-1 inline-flex rounded border border-dashed border-accent-400 bg-accent-100 px-2 py-0.5 text-xs font-medium text-accent-800">
+                        TODO – wird ergänzt
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .stage-node {
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+  .stage-node.is-active {
+    background-color: var(--color-accent-700);
+    border-color: var(--color-accent-700);
+  }
+
+  .stage-trigger .chevron {
+    transition: transform 0.2s ease;
+  }
+  .stage-trigger[aria-expanded='true'] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .roadmap-stage {
+    opacity: 1;
+    transform: none;
+  }
+  :global(.js-reveal) .roadmap-stage {
+    opacity: 0;
+    transform: translateY(1rem);
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
+  }
+  :global(.js-reveal) .roadmap-stage.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js-reveal) .roadmap-stage {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .stage-node,
+    .stage-trigger .chevron {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-roadmap]');
+
+  if (root) {
+    const stages = root.querySelectorAll<HTMLElement>('.roadmap-stage');
+
+    stages.forEach((stage) => {
+      const trigger = stage.querySelector<HTMLButtonElement>('[data-trigger]');
+      trigger?.addEventListener('click', () => {
+        const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+        stages.forEach((other) => {
+          other.querySelector('[data-trigger]')?.setAttribute('aria-expanded', 'false');
+          other.querySelector('[data-panel]')?.setAttribute('hidden', '');
+          other.querySelector('[data-node]')?.classList.remove('is-active');
+        });
+
+        if (!isOpen) {
+          trigger.setAttribute('aria-expanded', 'true');
+          stage.querySelector('[data-panel]')?.removeAttribute('hidden');
+          stage.querySelector('[data-node]')?.classList.add('is-active');
+        }
+      });
+    });
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+      root.classList.add('js-reveal');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2 },
+      );
+      stages.forEach((stage) => observer.observe(stage));
+    }
+  }
+</script>
