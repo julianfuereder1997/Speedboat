@@ -1,0 +1,83 @@
+---
+import { siteConfig } from '../config/site';
+
+const exampleQuestions = [
+  'Passt für unser Vorhaben eher das FFG Basisprogramm oder aws PreSeed?',
+  'Worauf muss ich im Kapitel „Verwertung“ des FFG-Antrags besonders achten?',
+  'Kannst du meinen Entwurf zum Finanzplan gegenlesen und Lücken markieren?',
+];
+---
+
+<section id="companion" aria-labelledby="companion-heading" class="bg-navy-950 text-paper">
+  <div class="container-page grid gap-12 px-6 py-24 md:grid-cols-2 md:items-center">
+    <div>
+      <p class="text-sm font-semibold tracking-wide text-accent-400 uppercase">Companion</p>
+      <h2 id="companion-heading" class="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+        Ihr KI-Gesprächspartner für Förderstrategie
+      </h2>
+      <p class="mt-4 max-w-lg text-navy-200">
+        Förder-Roadmap, Kapitel-Briefings und Review von Antragsentwürfen — jederzeit verfügbar,
+        aufbauend auf Ihrem konkreten Vorhaben.
+      </p>
+
+      <a
+        href={siteConfig.companionUrl}
+        target="_blank"
+        rel="noopener"
+        class="mt-8 inline-flex items-center gap-2 rounded-md bg-accent-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-500"
+      >
+        Mit dem Companion sprechen
+        <svg
+          class="size-4"
+          viewBox="0 0 20 20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7 5h8v8M15 5 5 15"></path>
+        </svg>
+        <span class="sr-only">(öffnet in neuem Tab)</span>
+      </a>
+      <p class="mt-3 flex items-start gap-2 text-sm text-navy-100">
+        <svg
+          class="mt-0.5 size-4 shrink-0 text-accent-400"
+          viewBox="0 0 20 20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          aria-hidden="true"
+        >
+          <circle cx="10" cy="10" r="7.25"></circle>
+          <path stroke-linecap="round" d="M10 9v4.5M10 6.5v.01"></path>
+        </svg>
+        Dafür ist ein kostenloses Konto auf der Companion-Plattform nötig.
+      </p>
+    </div>
+
+    <div class="rounded-xl border border-navy-700 bg-navy-900 p-6 shadow-xl">
+      <div class="flex items-center gap-3">
+        <div
+          class="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent-600 text-sm font-semibold text-white"
+          aria-hidden="true"
+        >
+          SB
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-paper">Speedboat Companion</p>
+          <p class="text-xs text-navy-400">Förderstrategie-Gespräch</p>
+        </div>
+      </div>
+
+      <ul class="mt-6 space-y-3">
+        {
+          exampleQuestions.map((question) => (
+            <li class="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm bg-accent-700 px-4 py-3 text-sm text-white">
+              {question}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

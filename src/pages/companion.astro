@@ -1,17 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import TodoNote from '../components/TodoNote.astro';
+import Companion from '../components/Companion.astro';
 ---
 
 <Layout title="Companion · Speedboat">
-  <div class="container-page px-6 py-16">
-    <h1 class="text-3xl font-semibold text-ink">Der Companion</h1>
-    <p class="mt-4 max-w-2xl text-ink-muted">
-      Ihr KI-Gesprächspartner für Förderstrategie: Förder-Roadmap, Kapitel-Briefings, Review von
-      Antragsentwürfen.
-    </p>
-    <div class="mt-8">
-      <TodoNote>Companion-Preview und CTA folgen in Block 6.</TodoNote>
+  <div class="bg-navy-950 text-paper">
+    <div class="container-page px-6 py-16">
+      <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Der Companion</h1>
+      <p class="mt-4 max-w-2xl text-navy-200">
+        Speedboat begleitet Sie auch außerhalb persönlicher Gespräche — mit einem
+        KI-Gesprächspartner für Förderstrategie.
+      </p>
     </div>
   </div>
+  <Companion />
 </Layout>
