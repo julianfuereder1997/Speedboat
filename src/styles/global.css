@@ -32,6 +32,52 @@
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji';
+
+  /*
+   * STAGING — Palette-Überarbeitung (siehe /styleguide).
+   * Parallele Tokens mit "-new"-Suffix bzw. neuen Namen, damit die
+   * bestehenden Seiten unverändert bleiben, bis die Palette freigegeben
+   * und in den Komponenten ausgerollt ist. Danach werden diese Werte in
+   * navy-, accent- und ink-Tokens übernommen und die -new-Tokens entfernt.
+   */
+
+  /* Dunkle Flächen: weiches Tintenblau statt Fast-Schwarz ("abends im Büro") */
+  --color-navy-new-950: #1c2331;
+  --color-navy-new-900: #242c3d;
+  --color-navy-new-800: #2f3849;
+  --color-navy-new-700: #3c4658;
+  --color-navy-new-600: #4f5a6d;
+  --color-navy-new-500: #6b7689;
+  --color-navy-new-400: #8f98a8;
+  --color-navy-new-300: #b0b8c4;
+  --color-navy-new-200: #cdd3da;
+  --color-navy-new-100: #e2e5ea;
+  --color-navy-new-50: #f1f2f5;
+
+  /* Text auf hellen Flächen, farblich an das neue Tintenblau angeglichen */
+  --color-ink-new: #1c2331;
+  --color-ink-muted-new: #5b6472;
+
+  /* Dritte, mittlere Flächenfarbe: kühles Hellgrau zwischen Papier und Tintenblau */
+  --color-mist: #e7eaed;
+  --color-mist-dim: #dadfe4;
+  --color-mist-line: #c3cad1;
+
+  /* Akzent: gleiches Orange, leicht entsättigt */
+  --color-accent-new-100: #fbedd9;
+  --color-accent-new-400: #e7934e;
+  --color-accent-new-500: #e1762b;
+  --color-accent-new-600: #d15d20;
+  --color-accent-new-700: #ad461c;
+  --color-accent-new-800: #8a391d;
+
+  /* Je ein dezenter Farbton pro Kernleistung, sparsam für aktive Tabs/Badges */
+  --color-pillar-foerderung: #4c6b8a;
+  --color-pillar-foerderung-soft: #e4e9ed;
+  --color-pillar-technologie: #3e7a72;
+  --color-pillar-technologie-soft: #e2ebea;
+  --color-pillar-geschaeft: #8c7735;
+  --color-pillar-geschaeft-soft: #eeebe1;
 }
 
 @utility container-page {

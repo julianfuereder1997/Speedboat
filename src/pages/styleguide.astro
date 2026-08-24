@@ -1,0 +1,274 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+interface Swatch {
+  label: string;
+  className: string;
+  hex: string;
+  textClassName?: string;
+}
+
+const surfacesDark: Swatch[] = [
+  {
+    label: 'navy-new-950',
+    className: 'bg-navy-new-950',
+    hex: '#1c2331',
+    textClassName: 'text-paper',
+  },
+  {
+    label: 'navy-new-900',
+    className: 'bg-navy-new-900',
+    hex: '#242c3d',
+    textClassName: 'text-paper',
+  },
+  {
+    label: 'navy-new-800',
+    className: 'bg-navy-new-800',
+    hex: '#2f3849',
+    textClassName: 'text-paper',
+  },
+  {
+    label: 'navy-new-700',
+    className: 'bg-navy-new-700',
+    hex: '#3c4658',
+    textClassName: 'text-paper',
+  },
+];
+
+const surfacesMid: Swatch[] = [
+  { label: 'mist', className: 'bg-mist', hex: '#e7eaed', textClassName: 'text-ink-new' },
+  { label: 'mist-dim', className: 'bg-mist-dim', hex: '#dadfe4', textClassName: 'text-ink-new' },
+  { label: 'mist-line', className: 'bg-mist-line', hex: '#c3cad1', textClassName: 'text-ink-new' },
+];
+
+const surfacesLight: Swatch[] = [
+  { label: 'paper', className: 'bg-paper', hex: '#fbfaf8', textClassName: 'text-ink-new' },
+  { label: 'paper-dim', className: 'bg-paper-dim', hex: '#f2f0ea', textClassName: 'text-ink-new' },
+  { label: 'line', className: 'bg-line', hex: '#e2ded4', textClassName: 'text-ink-new' },
+];
+
+const accentScale: Swatch[] = [
+  {
+    label: 'accent-new-100',
+    className: 'bg-accent-new-100',
+    hex: '#fbedd9',
+    textClassName: 'text-ink-new',
+  },
+  {
+    label: 'accent-new-400',
+    className: 'bg-accent-new-400',
+    hex: '#e7934e',
+    textClassName: 'text-ink-new',
+  },
+  {
+    label: 'accent-new-500',
+    className: 'bg-accent-new-500',
+    hex: '#e1762b',
+    textClassName: 'text-white',
+  },
+  {
+    label: 'accent-new-600',
+    className: 'bg-accent-new-600',
+    hex: '#d15d20',
+    textClassName: 'text-white',
+  },
+  {
+    label: 'accent-new-700',
+    className: 'bg-accent-new-700',
+    hex: '#ad461c',
+    textClassName: 'text-white',
+  },
+  {
+    label: 'accent-new-800',
+    className: 'bg-accent-new-800',
+    hex: '#8a391d',
+    textClassName: 'text-white',
+  },
+];
+
+// Tailwind kann Klassennamen nur erkennen, wenn sie als vollständige,
+// wörtliche Strings im Quelltext stehen — deshalb hier keine
+// Template-Literal-Interpolation wie `bg-${x}`, sondern fertige Klassen pro
+// Pillar.
+const pillars = [
+  {
+    name: 'Förderung',
+    label: 'pillar-foerderung',
+    bgClass: 'bg-pillar-foerderung',
+    softBgClass: 'bg-pillar-foerderung-soft',
+    borderClass: 'border-pillar-foerderung',
+    hexBase: '#4c6b8a',
+    hexSoft: '#e4e9ed',
+  },
+  {
+    name: 'Technologie',
+    label: 'pillar-technologie',
+    bgClass: 'bg-pillar-technologie',
+    softBgClass: 'bg-pillar-technologie-soft',
+    borderClass: 'border-pillar-technologie',
+    hexBase: '#3e7a72',
+    hexSoft: '#e2ebea',
+  },
+  {
+    name: 'Geschäftsmodell',
+    label: 'pillar-geschaeft',
+    bgClass: 'bg-pillar-geschaeft',
+    softBgClass: 'bg-pillar-geschaeft-soft',
+    borderClass: 'border-pillar-geschaeft',
+    hexBase: '#8c7735',
+    hexSoft: '#eeebe1',
+  },
+];
+---
+
+<Layout title="Styleguide (intern) · Speedboat">
+  <div class="container-page px-6 py-16">
+    <h1 class="text-3xl font-semibold text-ink-new">Styleguide — Palette-Überarbeitung</h1>
+    <p class="mt-4 max-w-2xl text-ink-muted-new">
+      Interne Vorschau der überarbeiteten Farb-Tokens (Staging-Namen mit "-new"-Suffix bzw. neue
+      Namen wie <code>mist</code> und <code>pillar-*</code>). Nicht in der Navigation verlinkt. Nach
+      Freigabe werden diese Werte in die bestehenden Tokens übernommen.
+    </p>
+
+    <section class="mt-12">
+      <h2 class="text-xl font-semibold text-ink-new">Drei Helligkeitsstufen für Sektionen</h2>
+      <p class="mt-2 max-w-2xl text-sm text-ink-muted-new">
+        Dunkel (weiches Tintenblau) — Mittel (kühles Hellgrau) — Hell (warmes Papierweiß). Sektionen
+        wechseln künftig zwischen diesen drei Stufen statt nur zwischen Hell und Dunkel.
+      </p>
+
+      <div class="mt-6 grid gap-6 md:grid-cols-3">
+        <div>
+          <p class="mb-2 text-xs font-semibold tracking-wide text-ink-muted-new uppercase">
+            Dunkel
+          </p>
+          <div class="space-y-2">
+            {
+              surfacesDark.map((s) => (
+                <div
+                  class={`flex items-center justify-between rounded-md px-4 py-3 text-sm ${s.className} ${s.textClassName}`}
+                >
+                  <span>{s.label}</span>
+                  <span class="font-mono text-xs opacity-80">{s.hex}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+        <div>
+          <p class="mb-2 text-xs font-semibold tracking-wide text-ink-muted-new uppercase">
+            Mittel
+          </p>
+          <div class="space-y-2">
+            {
+              surfacesMid.map((s) => (
+                <div
+                  class={`flex items-center justify-between rounded-md border border-mist-line px-4 py-3 text-sm ${s.className} ${s.textClassName}`}
+                >
+                  <span>{s.label}</span>
+                  <span class="font-mono text-xs opacity-70">{s.hex}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+        <div>
+          <p class="mb-2 text-xs font-semibold tracking-wide text-ink-muted-new uppercase">Hell</p>
+          <div class="space-y-2">
+            {
+              surfacesLight.map((s) => (
+                <div
+                  class={`flex items-center justify-between rounded-md border border-line px-4 py-3 text-sm ${s.className} ${s.textClassName}`}
+                >
+                  <span>{s.label}</span>
+                  <span class="font-mono text-xs opacity-70">{s.hex}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-xl font-semibold text-ink-new">Text</h2>
+      <div class="mt-4 grid gap-4 md:grid-cols-2">
+        <div class="rounded-md border border-line bg-paper p-6">
+          <p class="text-ink-new">ink-new — Fließtext auf hellen Flächen (#1c2331)</p>
+          <p class="mt-2 text-sm text-ink-muted-new">ink-muted-new — sekundärer Text (#5b6472)</p>
+        </div>
+        <div class="rounded-md bg-navy-new-950 p-6">
+          <p class="text-paper">paper — Fließtext auf dunklen Flächen</p>
+          <p class="mt-2 text-sm text-navy-new-300">navy-new-300 — sekundärer Text auf Dunkel</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-xl font-semibold text-ink-new">Akzent — leicht entsättigt</h2>
+      <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
+        {
+          accentScale.map((s) => (
+            <div
+              class={`rounded-md px-3 py-4 text-center text-sm ${s.className} ${s.textClassName}`}
+            >
+              <div>{s.label}</div>
+              <div class="mt-1 font-mono text-xs opacity-80">{s.hex}</div>
+            </div>
+          ))
+        }
+      </div>
+      <button
+        type="button"
+        class="mt-6 rounded-md bg-accent-new-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-new-600"
+      >
+        Beispiel-CTA (accent-new-700)
+      </button>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-xl font-semibold text-ink-new">
+        Leistungsfarben — dezent, für Tabs & Badges
+      </h2>
+      <div class="mt-4 grid gap-6 md:grid-cols-3">
+        {
+          pillars.map((p) => (
+            <div class="rounded-md border border-line bg-paper p-6">
+              <p class="font-semibold text-ink-new">{p.name}</p>
+              <div
+                class={`mt-3 flex items-center justify-between rounded-md px-3 py-2 text-sm text-white ${p.bgClass}`}
+              >
+                <span>{p.label}</span>
+                <span class="font-mono text-xs opacity-80">{p.hexBase}</span>
+              </div>
+              <div
+                class={`mt-2 flex items-center justify-between rounded-md px-3 py-2 text-sm text-ink-new ${p.softBgClass}`}
+              >
+                <span>{p.label}-soft</span>
+                <span class="font-mono text-xs opacity-70">{p.hexSoft}</span>
+              </div>
+
+              <p class="mt-4 text-xs font-medium tracking-wide text-ink-muted-new uppercase">
+                Badge-Beispiel
+              </p>
+              <span
+                class={`mt-1 inline-flex rounded-full px-3 py-1 text-xs font-medium text-ink-new ${p.softBgClass}`}
+              >
+                {p.name}
+              </span>
+
+              <p class="mt-4 text-xs font-medium tracking-wide text-ink-muted-new uppercase">
+                Aktiver Tab
+              </p>
+              <div
+                class={`mt-1 inline-flex border-b-2 px-1 pb-1 text-sm font-medium text-ink-new ${p.borderClass}`}
+              >
+                {p.name}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</Layout>
