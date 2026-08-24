@@ -1,0 +1,75 @@
+---
+import { pakete } from '../data/pakete';
+---
+
+<section id="pakete" aria-labelledby="pakete-heading" class="bg-paper">
+  <div class="container-page px-6 py-24">
+    <div class="max-w-2xl">
+      <p class="text-sm font-semibold tracking-wide text-accent-700 uppercase">Leistungspakete</p>
+      <h2
+        id="pakete-heading"
+        class="mt-2 text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
+      >
+        Drei Wege, mit uns zu starten
+      </h2>
+      <p class="mt-4 text-ink-muted">
+        Vom ersten Förder-Check bis zur laufenden Förderbetreuung über mehrere Jahre.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-8 md:grid-cols-3 md:items-start">
+      {
+        pakete.map((paket) => (
+          <div
+            class={`relative flex h-full flex-col rounded-lg border p-8 ${
+              paket.featured
+                ? 'border-2 border-accent-600 bg-navy-950 text-paper shadow-xl md:-mt-4 md:mb-4'
+                : 'border-line bg-paper-dim text-ink'
+            }`}
+          >
+            {paket.featured && (
+              <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent-600 px-3 py-1 text-xs font-semibold tracking-wide text-white uppercase">
+                Meistgewählt
+              </span>
+            )}
+
+            <h3 class={`text-xl font-semibold ${paket.featured ? 'text-paper' : 'text-ink'}`}>
+              {paket.name}
+            </h3>
+            <p class={`mt-3 text-sm ${paket.featured ? 'text-navy-200' : 'text-ink-muted'}`}>
+              {paket.description}
+            </p>
+
+            <p
+              class={`mt-6 text-xs font-medium tracking-wide uppercase ${
+                paket.featured ? 'text-navy-300' : 'text-navy-500'
+              }`}
+            >
+              {paket.audience}
+            </p>
+
+            <div class={`mt-8 border-t pt-6 ${paket.featured ? 'border-navy-700' : 'border-line'}`}>
+              <p class={`text-lg font-semibold ${paket.featured ? 'text-paper' : 'text-ink'}`}>
+                {paket.price.label}
+              </p>
+              <p class={`mt-1 text-sm ${paket.featured ? 'text-navy-300' : 'text-ink-muted'}`}>
+                {paket.price.detail}
+              </p>
+            </div>
+
+            <a
+              href="/kontakt"
+              class={`mt-8 inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-medium text-white transition-colors ${
+                paket.featured
+                  ? 'bg-accent-600 hover:bg-accent-500'
+                  : 'bg-accent-700 hover:bg-accent-600'
+              }`}
+            >
+              {paket.ctaLabel}
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
