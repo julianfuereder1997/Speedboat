@@ -1,40 +1,43 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import LeistungsTabs from '../components/LeistungsTabs.astro';
-import EinstiegsSelektor from '../components/EinstiegsSelektor.astro';
-import Pakete from '../components/Pakete.astro';
-import Companion from '../components/Companion.astro';
+import Kernleistungen from '../components/Kernleistungen.astro';
+import Verzahnung from '../components/Verzahnung.astro';
 import TodoNote from '../components/TodoNote.astro';
 import { siteConfig } from '../config/site';
 ---
 
 <Layout title={`${siteConfig.name} — Venture Development`}>
   <section class="bg-navy-950 text-paper">
-    <div class="container-page px-6 py-24">
-      <h1 class="max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl">
-        {siteConfig.tagline}
+    <div class="container-page px-6 py-20">
+      <h1 class="max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
+        Förderung, Technologie, Geschäftsmodell — aus einer Hand.
       </h1>
-      <p class="mt-6 max-w-xl text-lg text-navy-200">
-        {siteConfig.description}
+      <p class="mt-4 max-w-lg text-navy-200">
+        Speedboat bringt Ihr Vorhaben von der Idee zur Umsetzung, mit einem Team für alle drei
+        Kernleistungen.
       </p>
       <a
         href={siteConfig.ctaHref}
         class="mt-8 inline-block rounded-md bg-accent-700 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-600"
       >
-        {siteConfig.ctaLabel}
+        Termin buchen
       </a>
     </div>
   </section>
 
-  <LeistungsTabs />
+  <Kernleistungen />
 
-  <EinstiegsSelektor />
+  <Verzahnung />
 
-  <div class="container-page px-6 py-16">
-    <TodoNote>Die Verzahnungs-Sektion folgt in Block 7.</TodoNote>
-  </div>
-
-  <Pakete />
-
-  <Companion />
+  <section id="termin" aria-labelledby="termin-heading" class="bg-navy-950 text-paper">
+    <div class="container-page px-6 py-24">
+      <h2 id="termin-heading" class="text-2xl font-semibold tracking-tight sm:text-3xl">
+        Termin buchen
+      </h2>
+      <p class="mt-4 max-w-lg text-navy-200">Vereinbaren Sie ein unverbindliches Erstgespräch.</p>
+      <div class="mt-8 max-w-lg">
+        <TodoNote>Kalender-Embed folgt in Block 7 (Terminbuchung).</TodoNote>
+      </div>
+    </div>
+  </section>
 </Layout>
