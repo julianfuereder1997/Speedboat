@@ -18,8 +18,24 @@ export const siteConfig = {
     { label: 'Companion', href: '/companion' },
   ] satisfies NavItem[],
 
-  ctaLabel: 'Erstgespräch buchen',
-  ctaHref: '/kontakt',
+  ctaLabel: 'Termin buchen',
+  ctaHref: '/#termin',
+
+  /**
+   * TODO: Noch kein Cal.com-Konto vorhanden. Sobald eines existiert, hier
+   * den Cal-Link eintragen (das Format, das Cal.com als "calLink" nutzt,
+   * z. B. "team-name/erstgespraech" — ohne https://cal.com/-Präfix).
+   * Solange der Wert leer ist, zeigt die Terminbuchungs-Sektion einen
+   * Mailto-Fallback statt des Kalender-Embeds.
+   */
+  bookingUrl: '',
+
+  /**
+   * TODO: Noch keine reale Kontakt-Mailadresse festgelegt. Platzhalter
+   * (".example"-Domain, damit nichts Reales versehentlich adressiert
+   * wird) — vor Go-Live durch die echte Adresse ersetzen.
+   */
+  contactEmail: 'kontakt@speedboat.example',
 
   /**
    * Externe Companion-Plattform (kugelblitz.ai). Login-pflichtig, daher kein

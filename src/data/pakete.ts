@@ -9,6 +9,7 @@ export interface Paket {
     detail: string;
   };
   ctaLabel: string;
+  ctaHref: string;
   featured?: boolean;
 }
 
@@ -24,7 +25,8 @@ export const pakete: Paket[] = [
       label: 'EUR 2.100 netto',
       detail: 'einmalig',
     },
-    ctaLabel: 'Erstgespräch buchen',
+    ctaLabel: 'Termin buchen',
+    ctaHref: '/#termin',
   },
   {
     id: 'einreichung',
@@ -37,7 +39,8 @@ export const pakete: Paket[] = [
       label: 'EUR 2.100 netto Upfront + Erfolgshonorar',
       detail: '10 % auf bewilligte Zuschüsse, 3 % auf zugesagte Darlehen',
     },
-    ctaLabel: 'Erstgespräch buchen',
+    ctaLabel: 'Termin buchen',
+    ctaHref: '/#termin',
     featured: true,
   },
   {
@@ -52,5 +55,6 @@ export const pakete: Paket[] = [
       detail: 'auf Anfrage',
     },
     ctaLabel: 'Anfrage stellen',
+    ctaHref: '/kontakt',
   },
 ];

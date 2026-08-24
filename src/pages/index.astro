@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Kernleistungen from '../components/Kernleistungen.astro';
 import Verzahnung from '../components/Verzahnung.astro';
-import TodoNote from '../components/TodoNote.astro';
+import Terminbuchung from '../components/Terminbuchung.astro';
 import { siteConfig } from '../config/site';
 ---
 
@@ -29,15 +29,5 @@ import { siteConfig } from '../config/site';
 
   <Verzahnung />
 
-  <section id="termin" aria-labelledby="termin-heading" class="bg-navy-950 text-paper">
-    <div class="container-page px-6 py-24">
-      <h2 id="termin-heading" class="text-2xl font-semibold tracking-tight sm:text-3xl">
-        Termin buchen
-      </h2>
-      <p class="mt-4 max-w-lg text-navy-200">Vereinbaren Sie ein unverbindliches Erstgespräch.</p>
-      <div class="mt-8 max-w-lg">
-        <TodoNote>Kalender-Embed folgt in Block 7 (Terminbuchung).</TodoNote>
-      </div>
-    </div>
-  </section>
+  <Terminbuchung />
 </Layout>

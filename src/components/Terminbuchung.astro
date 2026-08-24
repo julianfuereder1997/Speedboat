@@ -1,0 +1,110 @@
+---
+import { siteConfig } from '../config/site';
+
+const hasBooking = Boolean(siteConfig.bookingUrl);
+---
+
+<section id="termin" aria-labelledby="termin-heading" class="bg-navy-950 text-paper">
+  <div class="container-page px-6 py-24">
+    <div class="max-w-lg">
+      <h2 id="termin-heading" class="text-2xl font-semibold tracking-tight sm:text-3xl">
+        Termin buchen
+      </h2>
+      <p class="mt-4 text-navy-200">Vereinbaren Sie ein unverbindliches Erstgespräch.</p>
+    </div>
+
+    {
+      hasBooking ? (
+        <div
+          class="mt-10 overflow-hidden rounded-lg bg-paper"
+          data-cal-embed
+          data-cal-link={siteConfig.bookingUrl}
+        >
+          <div id="cal-booking-place" class="min-h-[600px] w-full" />
+        </div>
+      ) : (
+        <div class="mt-10 max-w-lg rounded-lg border border-navy-700 bg-navy-900 p-8">
+          <p class="text-navy-200">
+            Die Online-Terminbuchung ist in Vorbereitung. Schreiben Sie uns in der Zwischenzeit
+            direkt — wir melden uns zeitnah zurück.
+          </p>
+          <a
+            href={`mailto:${siteConfig.contactEmail}`}
+            class="mt-6 inline-flex items-center gap-2 rounded-md bg-accent-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-500"
+          >
+            {siteConfig.contactEmail}
+          </a>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-cal-embed]');
+
+  if (root) {
+    const calLink = root.dataset.calLink;
+    const target = root.querySelector<HTMLElement>('#cal-booking-place');
+
+    const loadEmbed = () => {
+      if (!calLink || !target) return;
+
+      (function (win: typeof window, embedUrl: string, initFlag: string) {
+        const queue = (api: { q: unknown[] }, args: unknown) => {
+          api.q.push(args);
+        };
+        const doc = win.document;
+        const w = win as unknown as Record<string, any>;
+
+        w.Cal =
+          w.Cal ||
+          function (...args: unknown[]) {
+            const cal = w.Cal;
+            if (!cal.loaded) {
+              cal.ns = {};
+              cal.q = cal.q || [];
+              doc.head.appendChild(doc.createElement('script')).src = embedUrl;
+              cal.loaded = true;
+            }
+            if (args[0] === initFlag) {
+              const api: any = (...innerArgs: unknown[]) => queue(api, innerArgs);
+              const namespace = args[1];
+              api.q = api.q || [];
+              if (typeof namespace === 'string') {
+                cal.ns[namespace] = cal.ns[namespace] || api;
+                queue(cal.ns[namespace], args);
+                queue(cal, ['initNamespace', namespace]);
+              } else {
+                queue(cal, args);
+              }
+              return;
+            }
+            queue(cal, args);
+          };
+      })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+      const Cal = (window as unknown as Record<string, any>).Cal;
+      Cal('init', { origin: 'https://cal.com' });
+      Cal('inline', {
+        elementOrSelector: target,
+        calLink,
+        layout: 'month_view',
+      });
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            loadEmbed();
+            observer.disconnect();
+          }
+        });
+      });
+      observer.observe(root);
+    } else {
+      loadEmbed();
+    }
+  }
+</script>
