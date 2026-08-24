@@ -49,13 +49,46 @@ import { pakete } from '../data/pakete';
               {paket.audience}
             </p>
 
-            <div class={`mt-8 border-t pt-6 ${paket.featured ? 'border-navy-700' : 'border-line'}`}>
-              <p class={`text-lg font-semibold ${paket.featured ? 'text-paper' : 'text-ink'}`}>
-                {paket.price.label}
+            <div
+              class={`price-reveal mt-8 border-t pt-6 ${paket.featured ? 'border-navy-700' : 'border-line'}`}
+              data-price-reveal
+            >
+              <p class={`text-sm ${paket.featured ? 'text-navy-300' : 'text-ink-muted'}`}>
+                {paket.priceHint}
               </p>
-              <p class={`mt-1 text-sm ${paket.featured ? 'text-navy-300' : 'text-ink-muted'}`}>
-                {paket.price.detail}
-              </p>
+
+              <button
+                type="button"
+                class={`price-toggle mt-2 inline-flex items-center gap-1 text-sm font-medium ${
+                  paket.featured ? 'text-accent-400' : 'text-accent-700'
+                } hover:underline`}
+                aria-expanded="false"
+                aria-controls={`price-${paket.id}`}
+                data-price-toggle
+              >
+                <span data-price-toggle-label>Preis anzeigen</span>
+                <svg
+                  class="price-toggle-icon size-3.5"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  aria-hidden="true"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m5 7.5 5 5 5-5" />
+                </svg>
+              </button>
+
+              <div id={`price-${paket.id}`} class="price-panel" data-price-panel>
+                <div class="price-panel-inner pt-4">
+                  <p class={`text-lg font-semibold ${paket.featured ? 'text-paper' : 'text-ink'}`}>
+                    {paket.price.label}
+                  </p>
+                  <p class={`mt-1 text-sm ${paket.featured ? 'text-navy-300' : 'text-ink-muted'}`}>
+                    {paket.price.detail}
+                  </p>
+                </div>
+              </div>
             </div>
 
             <a
@@ -74,3 +107,57 @@ import { pakete } from '../data/pakete';
     </div>
   </div>
 </section>
+
+<style>
+  .price-reveal.js-enabled .price-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+      grid-template-rows 350ms ease-out,
+      opacity 250ms ease-out;
+  }
+  .price-reveal.js-enabled .price-panel-inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+  .price-reveal.js-enabled .price-panel.is-open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .price-toggle-icon {
+    transition: transform 200ms ease-out;
+  }
+  .price-toggle[aria-expanded='true'] .price-toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .price-reveal.js-enabled .price-panel {
+      transition: none;
+    }
+    .price-toggle-icon {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const reveals = document.querySelectorAll<HTMLElement>('[data-price-reveal]');
+
+  reveals.forEach((reveal) => {
+    reveal.classList.add('js-enabled');
+
+    const toggle = reveal.querySelector<HTMLButtonElement>('[data-price-toggle]');
+    const panel = reveal.querySelector<HTMLElement>('[data-price-panel]');
+    const label = reveal.querySelector<HTMLElement>('[data-price-toggle-label]');
+    if (!toggle || !panel || !label) return;
+
+    toggle.addEventListener('click', () => {
+      const isOpen = panel.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      label.textContent = isOpen ? 'Preis verbergen' : 'Preis anzeigen';
+    });
+  });
+</script>
