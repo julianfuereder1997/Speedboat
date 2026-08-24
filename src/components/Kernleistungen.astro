@@ -12,11 +12,12 @@ const pillarStyles: Record<string, { border: string; number: string }> = {
   <div class="container-page px-6 py-24">
     <h2 id="leistungen-heading" class="sr-only">Drei Kernleistungen</h2>
 
-    <div class="grid gap-4 md:grid-cols-3">
+    <div class="kernleistungen-grid grid gap-4 md:grid-cols-3" data-kernleistungen>
       {
         leistungen.map((l, index) => (
           <article
             class={`leistung-flaeche flex flex-col border-t-4 bg-paper-dim p-8 ${pillarStyles[l.id].border}`}
+            data-leistung-flaeche
           >
             <span
               class={`text-sm font-semibold tracking-wide ${pillarStyles[l.id].number}`}
@@ -27,33 +28,109 @@ const pillarStyles: Record<string, { border: string; number: string }> = {
             <h3 class="mt-4 text-xl font-semibold text-ink">{l.name}</h3>
             <p class="mt-3 text-sm text-ink-muted">{l.satz}</p>
 
-            <ul class="mt-6 flex flex-wrap gap-2">
-              {l.stichworte.map((wort) => (
-                <li class="rounded-full bg-paper px-3 py-1 text-xs font-medium text-ink-muted">
-                  {wort}
-                </li>
-              ))}
-            </ul>
+            <div class="leistung-extra">
+              <div class="leistung-extra-inner">
+                <ul class="mt-6 flex flex-wrap gap-2">
+                  {l.stichworte.map((wort) => (
+                    <li class="rounded-full bg-paper px-3 py-1 text-xs font-medium text-ink-muted">
+                      {wort}
+                    </li>
+                  ))}
+                </ul>
 
-            <a
-              href={l.href}
-              class={`mt-6 inline-flex items-center gap-1 text-sm font-medium ${pillarStyles[l.id].number} hover:underline`}
-            >
-              Mehr erfahren
-              <svg
-                class="size-3.5"
-                viewBox="0 0 20 20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.75"
-                aria-hidden="true"
-              >
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 10h12M10 4l6 6-6 6" />
-              </svg>
-            </a>
+                <a
+                  href={l.href}
+                  class={`mt-6 inline-flex items-center gap-1 text-sm font-medium ${pillarStyles[l.id].number} hover:underline`}
+                >
+                  Mehr erfahren
+                  <svg
+                    class="size-3.5"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.75"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M4 10h12M10 4l6 6-6 6"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
           </article>
         ))
       }
     </div>
   </div>
 </section>
+
+<style>
+  /*
+    Standardzustand (kein JS, prefers-reduced-motion): gleich breite Spalten,
+    Stichworte + Link immer sichtbar — das ist bereits das im Markup
+    gerenderte Layout ohne zusätzliche Klassen.
+  */
+
+  .kernleistungen-grid.is-interactive .leistung-extra {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+      grid-template-rows 400ms ease-out,
+      opacity 300ms ease-out;
+  }
+  .kernleistungen-grid.is-interactive .leistung-extra-inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .kernleistungen-grid.is-interactive {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+    }
+    .kernleistungen-grid.is-interactive .leistung-flaeche {
+      flex: 1 1 0%;
+      transition: flex-grow 450ms ease-out;
+    }
+    .kernleistungen-grid.is-interactive .leistung-flaeche:hover,
+    .kernleistungen-grid.is-interactive .leistung-flaeche:focus-within,
+    .kernleistungen-grid.is-interactive .leistung-flaeche.is-active {
+      flex-grow: 2.4;
+    }
+  }
+
+  .kernleistungen-grid.is-interactive .leistung-flaeche:hover .leistung-extra,
+  .kernleistungen-grid.is-interactive .leistung-flaeche:focus-within .leistung-extra,
+  .kernleistungen-grid.is-interactive .leistung-flaeche.is-active .leistung-extra {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+</style>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const grid = document.querySelector<HTMLElement>('[data-kernleistungen]');
+
+  if (grid && !prefersReducedMotion) {
+    grid.classList.add('is-interactive');
+
+    const panels = Array.from(grid.querySelectorAll<HTMLElement>('[data-leistung-flaeche]'));
+    const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
+
+    panels.forEach((panel) => {
+      panel.addEventListener('click', (event) => {
+        if (!isMobile()) return;
+        if ((event.target as HTMLElement).closest('a')) return;
+
+        const willActivate = !panel.classList.contains('is-active');
+        panels.forEach((other) => other.classList.remove('is-active'));
+        if (willActivate) panel.classList.add('is-active');
+      });
+    });
+  }
+</script>
