@@ -1,1 +1,40 @@
 @import 'tailwindcss';
+
+@theme {
+  /* Basis: dunkles Navy/Anthrazit (Header, Footer, Hero, aktive Roadmap-Stufe) */
+  --color-navy-950: #070b14;
+  --color-navy-900: #0d1420;
+  --color-navy-800: #16202f;
+  --color-navy-700: #212e42;
+  --color-navy-600: #37455c;
+  --color-navy-500: #57657d;
+  --color-navy-400: #8996a8;
+  --color-navy-300: #b3bdc9;
+  --color-navy-200: #d4dae2;
+  --color-navy-100: #e8ecf1;
+  --color-navy-50: #f5f7fa;
+
+  /* Helle Content-Flächen */
+  --color-paper: #fbfaf8;
+  --color-paper-dim: #f2f0ea;
+  --color-line: #e2ded4;
+  --color-ink: #14181f;
+  --color-ink-muted: #545b68;
+
+  /* Einziger Akzentton (CTAs, aktive Roadmap-Stufe) */
+  --color-accent-100: #ffedd5;
+  --color-accent-400: #fb923c;
+  --color-accent-500: #f97316;
+  --color-accent-600: #ea580c;
+  --color-accent-700: #c2410c;
+  --color-accent-800: #9a3412;
+
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji';
+}
+
+@utility container-page {
+  margin-inline: auto;
+  max-width: 80rem;
+}

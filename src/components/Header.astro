@@ -1,0 +1,100 @@
+---
+import { siteConfig } from '../config/site';
+
+const { pathname } = Astro.url;
+---
+
+<header class="sticky top-0 z-50 border-b border-navy-800 bg-navy-950 text-navy-100">
+  <div class="container-page flex items-center justify-between px-6 py-4">
+    <a href="/" class="text-lg font-semibold tracking-tight text-paper">{siteConfig.name}</a>
+
+    <nav aria-label="Hauptnavigation" class="hidden items-center gap-8 md:flex">
+      {
+        siteConfig.nav.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <a
+              href={item.href}
+              class={`text-sm transition-colors hover:text-accent-400 ${
+                isActive ? 'text-accent-400' : 'text-navy-100'
+              }`}
+              aria-current={isActive ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          );
+        })
+      }
+    </nav>
+
+    <a
+      href={siteConfig.ctaHref}
+      class="hidden rounded-md bg-accent-700 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-600 md:inline-block"
+    >
+      {siteConfig.ctaLabel}
+    </a>
+
+    <button
+      id="nav-toggle"
+      type="button"
+      class="inline-flex items-center justify-center rounded-md p-2 text-navy-100 hover:text-accent-400 md:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <span class="sr-only">Menü öffnen</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+        class="size-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"></path>
+      </svg>
+    </button>
+  </div>
+
+  <nav
+    id="mobile-nav"
+    aria-label="Mobile Navigation"
+    class="hidden border-t border-navy-800 md:hidden"
+  >
+    <ul class="container-page flex flex-col gap-1 px-6 py-4">
+      {
+        siteConfig.nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="block py-2 text-navy-100 hover:text-accent-400"
+              aria-current={pathname === item.href ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+      <li class="pt-2">
+        <a
+          href={siteConfig.ctaHref}
+          class="block rounded-md bg-accent-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-accent-600"
+        >
+          {siteConfig.ctaLabel}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('mobile-nav');
+
+  toggle?.addEventListener('click', () => {
+    const isHidden = nav?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', String(!isHidden));
+  });
+</script>
