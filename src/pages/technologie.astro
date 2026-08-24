@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import TodoNote from '../components/TodoNote.astro';
+import { technologieBloecke } from '../data/technologie';
 ---
 
 <Layout title="Technologie · Speedboat">
@@ -14,7 +14,21 @@ import TodoNote from '../components/TodoNote.astro';
       </p>
     </div>
   </div>
+
   <div class="container-page px-6 py-16">
-    <TodoNote>Vollständiger Seiteninhalt folgt in Block 6 (Unterseiten je Kernleistung).</TodoNote>
+    <blockquote class="max-w-3xl border-l-4 border-accent-600 pl-6 text-lg text-ink">
+      Enterprise-Erfahrung aus der Big-Four-Beratung, eingebracht in Vorhaben jeder Größe.
+    </blockquote>
+
+    <div class="mt-12 grid gap-8 md:grid-cols-2">
+      {
+        technologieBloecke.map((block) => (
+          <div class="rounded-lg border border-line bg-paper-dim p-8">
+            <h2 class="text-xl font-semibold text-ink">{block.title}</h2>
+            <p class="mt-3 text-sm text-ink-muted">{block.description}</p>
+          </div>
+        ))
+      }
+    </div>
   </div>
 </Layout>
