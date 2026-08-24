@@ -1,12 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Roadmap from '../components/Roadmap.astro';
 import Pakete from '../components/Pakete.astro';
 import Companion from '../components/Companion.astro';
+import TodoNote from '../components/TodoNote.astro';
 import { siteConfig } from '../config/site';
 ---
 
-<Layout title={`${siteConfig.name} — Förderberatung mit Geschwindigkeit`}>
+<Layout title={`${siteConfig.name} — Venture Development`}>
   <section class="bg-navy-950 text-paper">
     <div class="container-page px-6 py-24">
       <h1 class="max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl">
@@ -24,9 +24,15 @@ import { siteConfig } from '../config/site';
     </div>
   </section>
 
-  <Roadmap />
+  <div class="container-page px-6 py-16">
+    <TodoNote>
+      Leistungs-Tabs (Förderung/Technologie/Geschäftsmodell) folgen in Block 4, der
+      Einstiegs-Selektor in Block 5, die Verzahnungs-Sektion in Block 7. Die Förder-Roadmap ist auf
+      /foerderungen umgezogen.
+    </TodoNote>
+  </div>
 
   <Pakete />
 
-  <Companion /></Layout
->
+  <Companion />
+</Layout>
