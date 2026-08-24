@@ -1,0 +1,42 @@
+---
+import { siteConfig } from '../config/site';
+---
+
+<section aria-labelledby="companion-teaser-heading" class="bg-navy-950 text-paper">
+  <div
+    class="container-page flex flex-col gap-4 px-6 py-10 sm:flex-row sm:items-center sm:justify-between"
+  >
+    <div>
+      <p class="text-sm font-semibold tracking-wide text-accent-400 uppercase">
+        Companion · kostenlos
+      </p>
+      <h2 id="companion-teaser-heading" class="mt-1 text-lg font-semibold text-paper">
+        Kostenlos ausprobieren, bevor Sie sich entscheiden
+      </h2>
+      <p class="mt-1 max-w-xl text-sm text-navy-200">
+        Ihr KI-Gesprächspartner für Förderstrategie — frei zugänglich, unabhängig davon, für welches
+        Paket Sie sich am Ende entscheiden.
+      </p>
+    </div>
+
+    <a
+      href={siteConfig.companionUrl}
+      target="_blank"
+      rel="noopener"
+      class="inline-flex shrink-0 items-center gap-2 rounded-md bg-accent-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent-500"
+    >
+      Companion öffnen
+      <svg
+        class="size-4"
+        viewBox="0 0 20 20"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+        aria-hidden="true"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M7 5h8v8M15 5 5 15"></path>
+      </svg>
+      <span class="sr-only">(öffnet in neuem Tab)</span>
+    </a>
+  </div>
+</section>

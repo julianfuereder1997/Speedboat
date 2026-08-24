@@ -44,7 +44,7 @@ export const pakete: Paket[] = [
     id: 'begleitung',
     name: 'Begleitung',
     description:
-      'Laufende Förderbetreuung über mehrere Programme und Jahre hinweg — inklusive Companion-Zugang, monatlichem Kontingent an Public Funding Hours, Business Development und Unterstützung bei der Ausfinanzierung.',
+      'Laufende Förderbetreuung über mehrere Programme und Jahre hinweg — inklusive monatlichem Kontingent an Public Funding Hours, Business Development und Unterstützung bei der Ausfinanzierung.',
     audience: 'Für Unternehmen mit mehrjähriger Förderstrategie oder Förderportfolio.',
     priceHint: 'monatlich',
     price: {
