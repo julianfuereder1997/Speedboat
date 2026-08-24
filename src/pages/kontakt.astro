@@ -1,14 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import TodoNote from '../components/TodoNote.astro';
+import KontaktForm from '../components/KontaktForm.astro';
 ---
 
 <Layout title="Erstgespräch buchen · Speedboat">
   <div class="container-page px-6 py-16">
     <h1 class="text-3xl font-semibold text-ink">Erstgespräch buchen</h1>
-    <p class="mt-4 max-w-2xl text-ink-muted">Vereinbaren Sie ein unverbindliches Erstgespräch.</p>
-    <div class="mt-8">
-      <TodoNote>Kontaktformular / Terminbuchung folgt in Block 7 (Restliche Seiten).</TodoNote>
+    <p class="mt-4 max-w-2xl text-ink-muted">
+      Vereinbaren Sie ein unverbindliches Erstgespräch. Wir melden uns nach Eingang Ihrer Anfrage
+      bei Ihnen.
+    </p>
+    <div class="mt-10">
+      <KontaktForm />
     </div>
   </div>
 </Layout>

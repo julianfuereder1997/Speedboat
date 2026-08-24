@@ -1,17 +1,70 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TodoNote from '../components/TodoNote.astro';
+import { foerderprogramme } from '../data/foerderprogramme';
 ---
 
-<Layout title="Förderungen & Roadmap · Speedboat">
+<Layout title="Förderungen im Überblick · Speedboat">
+  <div class="bg-navy-950 text-paper">
+    <div class="container-page px-6 py-16">
+      <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Förderungen im Überblick</h1>
+      <p class="mt-4 max-w-2xl text-navy-200">
+        Vier Programmfamilien, mit denen wir am häufigsten arbeiten — als Einstieg, nicht als
+        vollständiger Förderkatalog.
+      </p>
+    </div>
+  </div>
+
   <div class="container-page px-6 py-16">
-    <h1 class="text-3xl font-semibold text-ink">Förderungen & Roadmap im Detail</h1>
-    <p class="mt-4 max-w-2xl text-ink-muted">
-      Programme, Zeitachse und Budgetlogik im Detail — abgestimmt auf FFG, aws, Wirtschaftsagentur
-      Wien und EU-Programme.
-    </p>
-    <div class="mt-8">
-      <TodoNote>Vollständiger Seiteninhalt folgt in Block 7 (Restliche Seiten).</TodoNote>
+    <div class="grid gap-8 md:grid-cols-2">
+      {
+        foerderprogramme.map((programm) => (
+          <div class="rounded-lg border border-line bg-paper-dim p-8">
+            <h2 class="text-xl font-semibold text-ink">{programm.name}</h2>
+            <dl class="mt-4 space-y-4 text-sm">
+              <div>
+                <dt class="font-medium text-ink">Wofür</dt>
+                <dd class="mt-1 text-ink-muted">{programm.purpose}</dd>
+              </div>
+              <div>
+                <dt class="font-medium text-ink">Unternehmensphase</dt>
+                <dd class="mt-1 text-ink-muted">{programm.phase}</dd>
+              </div>
+              <div>
+                <dt class="font-medium text-ink">Zuschuss oder Darlehen</dt>
+                <dd class="mt-1 text-ink-muted">{programm.fundingType}</dd>
+              </div>
+            </dl>
+            <a
+              href={programm.sourceUrl}
+              target="_blank"
+              rel="noopener"
+              class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-accent-700 hover:text-accent-800"
+            >
+              Quelle: {programm.sourceLabel}
+              <svg
+                class="size-3.5"
+                viewBox="0 0 20 20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                aria-hidden="true"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7 5h8v8M15 5 5 15" />
+              </svg>
+              <span class="sr-only">(öffnet in neuem Tab)</span>
+            </a>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 max-w-3xl">
+      <TodoNote>
+        Fördersummen, -quoten und Einreichfristen ändern sich laufend und sind hier bewusst nicht
+        angegeben. Aktuelle Konditionen bitte direkt bei der jeweiligen Förderstelle oder im
+        persönlichen Förder-Check prüfen.
+      </TodoNote>
     </div>
   </div>
 </Layout>

@@ -1,17 +1,129 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TodoNote from '../components/TodoNote.astro';
+import TodoBadge from '../components/TodoBadge.astro';
+
+// RECHTLICHER HINWEIS: Strukturgerüst nach DSGVO. Alle konkreten Angaben
+// (Verantwortlicher, Rechtsgrundlagen, Speicherdauer, Auftragsverarbeiter,
+// Drittlandtransfer) sind Platzhalter und NICHT rechtsgültig. Vor
+// Live-Schaltung zwingend anwaltlich prüfen lassen.
 ---
 
 <Layout title="Datenschutz · Speedboat">
   <div class="container-page px-6 py-16">
     <h1 class="text-3xl font-semibold text-ink">Datenschutz</h1>
-    <div class="mt-8 max-w-2xl">
+
+    <div class="mt-6 max-w-2xl">
       <TodoNote>
-        Platzhalter — die Datenschutzerklärung (Verantwortlicher, verarbeitete Daten,
-        Rechtsgrundlagen, eingesetzte Dienste wie z. B. der Companion, Betroffenenrechte) folgt und
-        muss juristisch geprüft werden. Kein Inhalt wurde erfunden.
+        Diese Seite ist ein Strukturgerüst und noch nicht rechtsgültig. Alle konkreten Angaben sind
+        Platzhalter und müssen vor Live-Schaltung anwaltlich geprüft werden.
       </TodoNote>
+    </div>
+
+    <div class="mt-10 max-w-2xl space-y-10">
+      <section aria-labelledby="ds-verantwortlicher">
+        <h2 id="ds-verantwortlicher" class="text-lg font-semibold text-ink">Verantwortlicher</h2>
+        <dl class="mt-4 space-y-3 text-sm">
+          <div class="flex flex-wrap items-baseline gap-2">
+            <dt class="w-56 shrink-0 font-medium text-ink">Name / Anschrift</dt>
+            <dd><TodoBadge /></dd>
+          </div>
+          <div class="flex flex-wrap items-baseline gap-2">
+            <dt class="w-56 shrink-0 font-medium text-ink">Kontakt</dt>
+            <dd><TodoBadge /></dd>
+          </div>
+          <div class="flex flex-wrap items-baseline gap-2">
+            <dt class="w-56 shrink-0 font-medium text-ink">Datenschutzbeauftragte:r</dt>
+            <dd><TodoBadge>Bestellung/Kontakt TODO</TodoBadge></dd>
+          </div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="ds-verarbeitung">
+        <h2 id="ds-verarbeitung" class="text-lg font-semibold text-ink">
+          Verarbeitete Daten und Zwecke
+        </h2>
+        <p class="mt-3 text-sm text-ink-muted">
+          Über das Kontaktformular verarbeiten wir die dort angegebenen Daten (Name, Unternehmen,
+          E-Mail-Adresse, Beschreibung des Vorhabens, Wunschpaket) zur Bearbeitung Ihrer Anfrage.
+          Der automatisierte Versand dieser Daten ist technisch noch nicht angebunden.
+        </p>
+        <div class="mt-3">
+          <TodoBadge>Rechtsgrundlage(n) nach Art. 6 Abs. 1 DSGVO TODO</TodoBadge>
+        </div>
+      </section>
+
+      <section aria-labelledby="ds-empfaenger">
+        <h2 id="ds-empfaenger" class="text-lg font-semibold text-ink">
+          Empfänger und Auftragsverarbeiter
+        </h2>
+        <dl class="mt-4 space-y-3 text-sm">
+          <div class="flex flex-wrap items-baseline gap-2">
+            <dt class="w-56 shrink-0 font-medium text-ink">E-Mail-Versand (Kontaktformular)</dt>
+            <dd><TodoBadge>Anbieter (z. B. Resend) TODO</TodoBadge></dd>
+          </div>
+          <div class="flex flex-wrap items-baseline gap-2">
+            <dt class="w-56 shrink-0 font-medium text-ink">Companion-Plattform</dt>
+            <dd>
+              Externer Dienst (kugelblitz.ai) mit eigener Kontoregistrierung — es gilt dessen eigene
+              Datenschutzerklärung. <TodoBadge>Link TODO</TodoBadge>
+            </dd>
+          </div>
+          <div class="flex flex-wrap items-baseline gap-2">
+            <dt class="w-56 shrink-0 font-medium text-ink">Hosting</dt>
+            <dd><TodoBadge /></dd>
+          </div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="ds-speicherdauer">
+        <h2 id="ds-speicherdauer" class="text-lg font-semibold text-ink">Speicherdauer</h2>
+        <div class="mt-3"><TodoBadge /></div>
+      </section>
+
+      <section aria-labelledby="ds-drittland">
+        <h2 id="ds-drittland" class="text-lg font-semibold text-ink">
+          Internationale Datenübermittlung
+        </h2>
+        <p class="mt-3 text-sm text-ink-muted">
+          Ob und in welchem Umfang Daten in Länder außerhalb der EU/des EWR (Drittländer, z. B. USA)
+          übermittelt werden, hängt von den final eingesetzten Dienstleistern ab.
+        </p>
+        <div class="mt-3"><TodoBadge /></div>
+      </section>
+
+      <section aria-labelledby="ds-cookies">
+        <h2 id="ds-cookies" class="text-lg font-semibold text-ink">Cookies und Tracking</h2>
+        <p class="mt-3 text-sm text-ink-muted">
+          Diese Website setzt aktuell keine Analyse- oder Tracking-Cookies ein. Sollte sich das
+          ändern, wird dieser Abschnitt aktualisiert.
+        </p>
+      </section>
+
+      <section aria-labelledby="ds-rechte">
+        <h2 id="ds-rechte" class="text-lg font-semibold text-ink">Ihre Rechte</h2>
+        <p class="mt-3 text-sm text-ink-muted">
+          Sie haben nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16),
+          Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art.
+          20) sowie Widerspruch (Art. 21) gegen die Verarbeitung Ihrer personenbezogenen Daten.
+        </p>
+      </section>
+
+      <section aria-labelledby="ds-beschwerde">
+        <h2 id="ds-beschwerde" class="text-lg font-semibold text-ink">Beschwerderecht</h2>
+        <p class="mt-3 text-sm text-ink-muted">
+          Sie haben das Recht, sich bei der österreichischen Datenschutzbehörde zu beschweren:
+          <a
+            href="https://www.dsb.gv.at/"
+            target="_blank"
+            rel="noopener"
+            class="text-accent-700 underline hover:text-accent-800"
+          >
+            dsb.gv.at
+          </a>
+          .
+        </p>
+      </section>
     </div>
   </div>
 </Layout>

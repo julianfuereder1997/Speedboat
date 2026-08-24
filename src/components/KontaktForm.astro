@@ -1,0 +1,160 @@
+---
+import { pakete } from '../data/pakete';
+import { VORHABEN_MAX_LENGTH } from '../lib/kontakt-validation';
+
+const paketOptions = [
+  ...pakete.map((paket) => ({ value: paket.id, label: paket.name })),
+  { value: 'unsicher', label: 'Ich bin unsicher' },
+];
+---
+
+<form id="kontakt-form" class="max-w-xl" novalidate>
+  <div class="space-y-6">
+    <div>
+      <label for="name" class="block text-sm font-medium text-ink">Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        autocomplete="name"
+        required
+        class="mt-1 block w-full rounded-md border border-line bg-paper px-3 py-2 text-sm text-ink focus:border-accent-600 focus:ring-1 focus:ring-accent-600 focus:outline-none"
+        aria-describedby="name-error"
+      />
+      <p id="name-error" class="mt-1 hidden text-sm text-accent-700" role="alert"></p>
+    </div>
+
+    <div>
+      <label for="unternehmen" class="block text-sm font-medium text-ink">Unternehmen</label>
+      <input
+        type="text"
+        id="unternehmen"
+        name="unternehmen"
+        autocomplete="organization"
+        required
+        class="mt-1 block w-full rounded-md border border-line bg-paper px-3 py-2 text-sm text-ink focus:border-accent-600 focus:ring-1 focus:ring-accent-600 focus:outline-none"
+        aria-describedby="unternehmen-error"
+      />
+      <p id="unternehmen-error" class="mt-1 hidden text-sm text-accent-700" role="alert"></p>
+    </div>
+
+    <div>
+      <label for="email" class="block text-sm font-medium text-ink">E-Mail</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        autocomplete="email"
+        required
+        class="mt-1 block w-full rounded-md border border-line bg-paper px-3 py-2 text-sm text-ink focus:border-accent-600 focus:ring-1 focus:ring-accent-600 focus:outline-none"
+        aria-describedby="email-error"
+      />
+      <p id="email-error" class="mt-1 hidden text-sm text-accent-700" role="alert"></p>
+    </div>
+
+    <div>
+      <label for="vorhaben" class="block text-sm font-medium text-ink">Vorhaben in einem Satz</label
+      >
+      <input
+        type="text"
+        id="vorhaben"
+        name="vorhaben"
+        maxlength={VORHABEN_MAX_LENGTH}
+        required
+        class="mt-1 block w-full rounded-md border border-line bg-paper px-3 py-2 text-sm text-ink focus:border-accent-600 focus:ring-1 focus:ring-accent-600 focus:outline-none"
+        aria-describedby="vorhaben-error vorhaben-hint"
+      />
+      <p id="vorhaben-hint" class="mt-1 text-xs text-ink-muted">
+        Ein Satz genügt — Details besprechen wir im Erstgespräch.
+      </p>
+      <p id="vorhaben-error" class="mt-1 hidden text-sm text-accent-700" role="alert"></p>
+    </div>
+
+    <div>
+      <label for="paket" class="block text-sm font-medium text-ink">Wunschpaket</label>
+      <select
+        id="paket"
+        name="paket"
+        required
+        class="mt-1 block w-full rounded-md border border-line bg-paper px-3 py-2 text-sm text-ink focus:border-accent-600 focus:ring-1 focus:ring-accent-600 focus:outline-none"
+        aria-describedby="paket-error"
+      >
+        <option value="" selected disabled>Bitte wählen</option>
+        {paketOptions.map((option) => <option value={option.value}>{option.label}</option>)}
+      </select>
+      <p id="paket-error" class="mt-1 hidden text-sm text-accent-700" role="alert"></p>
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="mt-8 inline-flex items-center justify-center rounded-md bg-accent-700 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-600"
+  >
+    Anfrage senden
+  </button>
+
+  <div
+    id="kontakt-status"
+    class="mt-6 hidden rounded-md border border-dashed border-accent-400 bg-accent-100 px-4 py-3 text-sm text-accent-800"
+    role="status"
+    aria-live="polite"
+  >
+  </div>
+</form>
+
+<script>
+  import { validateKontaktForm, type KontaktFormErrors } from '../lib/kontakt-validation';
+
+  const form = document.getElementById('kontakt-form') as HTMLFormElement | null;
+  const status = document.getElementById('kontakt-status');
+
+  const fields = ['name', 'unternehmen', 'email', 'vorhaben', 'paket'] as const;
+
+  function showErrors(errors: KontaktFormErrors) {
+    let firstInvalid: HTMLElement | null = null;
+
+    for (const field of fields) {
+      const input = document.getElementById(field) as HTMLInputElement | HTMLSelectElement | null;
+      const errorEl = document.getElementById(`${field}-error`);
+      const message = errors[field];
+
+      if (!input || !errorEl) continue;
+
+      if (message) {
+        errorEl.textContent = message;
+        errorEl.classList.remove('hidden');
+        input.setAttribute('aria-invalid', 'true');
+        firstInvalid ??= input;
+      } else {
+        errorEl.textContent = '';
+        errorEl.classList.add('hidden');
+        input.removeAttribute('aria-invalid');
+      }
+    }
+
+    firstInvalid?.focus();
+  }
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+    const result = validateKontaktForm(Object.fromEntries(formData));
+
+    if (!result.success) {
+      showErrors(result.errors);
+      if (status) status.classList.add('hidden');
+      return;
+    }
+
+    showErrors({});
+
+    // Noch kein Backend angebunden — siehe Dokumentation in
+    // src/lib/kontakt-validation.ts, wo die spätere Resend-Anbindung andockt.
+    if (status) {
+      status.textContent =
+        'Danke! Ihre Angaben sind vollständig und gültig. Der automatische Versand ist technisch noch nicht angebunden — bitte haben Sie noch etwas Geduld, bis das Formular live geschaltet ist.';
+      status.classList.remove('hidden');
+    }
+  });
+</script>
